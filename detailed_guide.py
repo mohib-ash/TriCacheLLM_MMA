@@ -20,7 +20,11 @@ app = FastAPI()
 
 #After First Run:
 # POINT TO NOTE IS: for user_id=0 (YOU) it'll set all things up, but when you need it for multiple users then call it for each user's user_id
-# Then for each user you'll have a saprate cache_vdb mininal implemntation:
+# If you want to use it for single user then after user_id=0, the next user_id will be for single user
+# NOTE: we do not create cache_vdb for user_id=0 . any user_id other than 0 will have a cache_vdb due to security ive given all their own vdb. i couldve squeezed all in single
+    #vdb and done filtering by user_id but thats no fun..
+    
+# mininal implemntation after initial creation:
 """
 @app.post("/xyz")
 async def ask_question(user_payload: QuestionRequest, db: AsyncSession = Depends(get_db), user_jwt_payload: TokenDataSchema = Depends(get_user_jwt_payload)):
@@ -33,17 +37,6 @@ async def ask_question(user_payload: QuestionRequest, db: AsyncSession = Depends
     
     #as all fields expect user_id in create_cache_system after first run are optional 
 """
-
-@app.post("/api/tenant/{user_id}/init")
-async def initialize_tenant(user_id: int):
-    result = await create_cache_system(
-        redis_url="redis://localhost:6379/0",
-        cohere_api_key="YOUR_COHERE_API_KEY",
-        chroma_db_dir="./chroma_db",
-        db_path="./cache.db",
-        user_id=user_id,
-    )
-    return {"status": "success", "details": result}
 
 
 # 2. Main Chat / AI Query Route (Multi-Tenant Caching Flow)

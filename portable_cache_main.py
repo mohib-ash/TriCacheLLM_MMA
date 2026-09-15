@@ -417,16 +417,30 @@ async def create_cache_system(
 ) -> dict[str, bool | str] | None:
     
     print(f"CACHE_SYSTEM_INIT_STARTED where user_id: {user_id}")
-    try:
-        db_file = Path(db_path)
-        init_cache_database(db_file) #this creates all session mamanger for db_manager object!
-        await init_db_tables() #this will stay out regardless in case of server cold restart
+    try:        
+        if user_id == 0:
+            if not all([
+                redis_url,
+                cohere_api_key,
+                chroma_db_dir,
+                db_path,
+            ]):
+                raise ValueError(
+                    "System initialization requires redis_url, "
+                    "cohere_api_key, chroma_db_dir and db_path."
+                )
                 
-        if user_id == 0 or (redis_url and cohere_api_key):
+            #these are to be made for the first time    
+            db_file = Path(db_path)
+            init_cache_database(db_file) #this creates all session mamanger for db_manager object!
+            await init_db_tables() #this will stay out regardless in case of server cold restart
+                    
             key_res: dict = system_key(redis_url=redis_url, chroma_db_dir=chroma_db_dir, cohere_api_key=cohere_api_key, portable_cache_registry_db=Path(db_path))
             if not key_res["success"]:
                 raise ValueError("Failed to initialize system keys. Verify if the keys are correct.")
-
+            
+            return #user_id=0 doesnt need its own vdb! if you want to be it user-self be user_id=1 -> single user
+                    #if you want multi-tanent then keep sending in user_ids lol
         
         
         async with db_manager.async_session() as db:
@@ -509,20 +523,19 @@ async def populate_cache(to_cache_answer, to_cache_question, user_id: Any = 0) -
 
 async def close_cache_system():
     print("SHUTTING_DOWN_PORTABLE_CACHE: Cleaning up resources...")
-    from portable_cache_schemas.portable_cache_dbConf import norma_engine, celery_engine
-    #u may ask this'll throw error but dw if python cant find shii it throws a __getattr__(name) hook:
-    #we do have __getattr__(name) func ;)
-    
-    if norma_engine is not None:
+
+    from portable_cache_schemas.portable_cache_dbConf import db_manager
+
+    if db_manager.norma_engine is not None:
         try:
-            await norma_engine.dispose()
+            await db_manager.norma_engine.dispose()
             print("Norma database engine disposed successfully.")
         except Exception as e:
             print(f"Error disposing norma_engine: {e}")
-            
-    if celery_engine is not None:
+
+    if db_manager.celery_engine is not None:
         try:
-            await celery_engine.dispose()
+            await db_manager.celery_engine.dispose()
             print("Celery database engine disposed successfully.")
         except Exception as e:
             print(f"Error disposing celery_engine: {e}")
@@ -532,5 +545,53 @@ async def close_cache_system():
         print("Redis connection pool disconnected successfully.")
     except Exception as e:
         print(f"Error disconnecting Redis pool: {e}")
-        
+
     print("Portable Cache shutdown complete!")
+
+def check_tenant_creation_status(task_id, user_id) -> dict:
+    task_id: str = str(task_id)
+    user_id: int = int(user_id)
+    
+    from celery.result import AsyncResult
+    from portable_cache_bgWorkers.portable_cache_celery_conf import celery_app
+    from celery.states import SUCCESS, FAILURE, RETRY
+    
+    async_result = AsyncResult(task_id, app=celery_app)
+    state = async_result.state
+    
+    if state == SUCCESS:
+        data={
+            "status": "completed",
+            "task_id": task_id,
+            "state": state,
+            "failed": False
+    }
+        return data
+    
+    elif state == FAILURE:
+        data={
+            "status": "failed",
+            "task_id": task_id,
+            "state": state,
+            "failed": True
+    }
+        return data
+    
+    elif state == RETRY:    
+        data={
+            "status": "retrying",
+            "task_id": task_id,
+            "state": state,
+            "failed": False
+    }
+        return data
+    
+    else:
+        data={
+            "status": "processing",
+            "task_id": task_id,
+            "state": state,
+            "failed": False
+    }
+        return data
+    

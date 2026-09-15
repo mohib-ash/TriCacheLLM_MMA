@@ -2,7 +2,7 @@
 
 ## Portable 3-Tier Semantic Cache for LLM Applications
 
-**TriCacheLLM_MMA** is a portable asynchronous caching system designed for applications that repeatedly ask LLMs similar or identical questions.
+**TriCacheLLM_MMA** is a portable asynchronous caching system designed for Ai based ***web applications*** that repeatedly ask LLMs similar or identical questions.
 
 It combines:
 
@@ -307,8 +307,9 @@ users.user_id
 ```
 
 Therefore, the consumer application must provide a compatible `users` table with a unique `user_id` primary key.
+If you don't want your web app to have Multiple Tenants then asside form user_id=0, keep providing same user_id.
     For a complete integration example, see:
-`example_user_experice.py`.
+`details_and_examples.py`.
 
 ---
 
