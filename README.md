@@ -22,6 +22,7 @@ The goal is simple:
 The package is designed so that the consuming application only needs to initialize the cache infrastructure and use three simple operations:
 
 ```python
+create_cache_system(...)
 check_cache(...)
 populate_cache(...)
 ```
