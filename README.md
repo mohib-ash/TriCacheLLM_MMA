@@ -25,6 +25,7 @@ The package is designed so that the consuming application only needs to initiali
 create_cache_system(...)
 check_cache(...)
 populate_cache(...)
+check_tenant_creation_status(...)
 ```
 
 The internal infrastructure handles the multi-tier lookup and promotion logic.
