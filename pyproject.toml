@@ -1,0 +1,91 @@
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "TriCacheLLM_MMA"
+version = "0.1.0"
+
+description = "A robust three-tier LLM-aware caching SDK using Redis, ChromaDB, and automatic SQLite bootstrap."
+readme = "README.md"
+
+requires-python = ">=3.10"
+
+authors = [
+    { name = "MOHIB ASHFAQ BUTT", email = "inboxmohib@gmail.com" }
+]
+
+keywords = [
+    "llm",
+    "cache",
+    "caching",
+    "semantic-cache",
+    "three-tier-cache",
+    "redis",
+    "chromadb",
+    "rag",
+    "rag-cache",
+    "ai",
+    "nlp"
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Database",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+
+dependencies = [
+    "SQLAlchemy>=2.0.0",
+    "aiosqlite>=0.19.0",
+    "redis>=7.0.0",
+    "chromadb>=1.5.0",
+    "langchain-chroma>=0.2.0",
+    "langchain-core>=0.3.0",
+    "langchain-huggingface>=0.3.0",
+    "sentence-transformers>=5.0.0",
+    "cohere>=5.0.0",
+    "celery>=5.0.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "numpy>=2.0.0",
+    "python-dotenv>=1.0.0"
+]
+
+
+[project.urls]
+Homepage = "https://github.com/mohib-ash/TriCacheLLM_MMA"
+Repository = "https://github.com/mohib-ash/TriCacheLLM_MMA"
+Issues = "https://github.com/mohib-ash/TriCacheLLM_MMA/issues"
+
+
+
+
+
+[tool.setuptools]
+include-package-data = true
+py-modules = [
+    "portable_cache_main",
+    "portable_cache_redis",
+    "portable_cache_dbSchema"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "portable_cache_Ai*",
+    "portable_cache_bgWorkers*",
+    "portable_cache_schemas*",
+    "portable_cache_utils*"
+]

@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Runtime databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Chroma / vector storage
+chroma_db/
+chroma_cache_storage/
+
+# Internal runtime configuration / secrets
+.portable_cache_internal/
+.env
+*.env
+
+# Build artifacts
+dist/
+build/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Personal / development notes
+READ ME!.txt
+idea_and_pogression.txt
+pypi info.txt
