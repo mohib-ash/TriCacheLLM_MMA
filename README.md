@@ -479,6 +479,10 @@ app = FastAPI(
 )
 
 
+# NOTE: It is strongly recommended—if not required—to run create_cache_system(user_id=0) for initialization before starting Celery.
+# In upcoming versions, this process will be automated, so you won't need to manually run the Celery command.
+
+
 # 1. ADMIN SETUP (Run once on startup / first deploy with user_id=0)
 @app.post("/api/consumer/init")
 async def initialize_consumer():

@@ -1,7 +1,9 @@
 # File: portable_cache_main.py
 import asyncio
+from asyncio import subprocess
 import hashlib
 import json
+import os
 from pathlib import Path
 from typing import Any
 from .portable_cache_schemas.portable_cache_dbConf import init_cache_database, init_db_tables, db_manager
@@ -29,6 +31,8 @@ from .portable_cache_redis import get_redis
 from .portable_cache_redis import redis_manager
 from .portable_cache_utils.protable_cache_DynamicEnv_maker import system_key
 from .portable_cache_dbSchema import Paths
+import sys
+
 
 def create_vector_index_schema(dim: int, distance_metric: str = "COSINE", m: int = 16, ef_construction: int = 200, ef_runtime: int = 10) -> list:
     return [
@@ -439,9 +443,48 @@ async def create_cache_system(
             if not key_res["success"]:
                 raise ValueError("Failed to initialize system keys. Verify if the keys are correct.")
             
+            
+            # This bit is for 0.1.8 (it being after sysetm_key is on purpose)
+            """
+            is_in_venv = sys.prefix != sys.base_prefix
+            celery_name = "celery.exe" if os.name == "nt" else "celery"
+            celery_executable = Path(sys.executable).parent / celery_name
+            
+            if is_in_venv and celery_executable.exists():
+                celery_cmd = [
+                    str(celery_executable),
+                    "-A",
+                    "TriCacheLLM_MMA.portable_cache_bgWorkers.portable_cache_celery_conf.celery_app",
+                    "worker",
+                    "--loglevel=info",
+                    "-Q",
+                    "ai"
+                ]
+                
+                # Check OS and launch accordingly
+                if os.name == "nt":
+                    subprocess.Popen(celery_cmd, creationflags=subprocess.CREATE_NEW_CONSOLE)
+                    print("Don't worry, TriCacheLLM_MMA is running celery background workers automatically")
+                    
+                elif sys.platform == "darwin":
+                    try:
+                        cmd_str = " ".join(celery_cmd)
+                        subprocess.Popen(["osascript", "-e", f'tell application "Terminal" to do script "{cmd_str}"'])
+                        print("Don't worry, TriCacheLLM_MMA is running celery background workers automatically")
+                    except Exception:
+                        subprocess.Popen(celery_cmd)    
+                        print("Don't worry, TriCacheLLM_MMA is running celery background workers automatically")
+                else:
+                    # Linux / Unix fallback (runs as a background child process)
+                    subprocess.Popen(celery_cmd)
+                    print("Don't worry, TriCacheLLM_MMA is running celery background workers automatically")
+            else:
+                print("---WARNING--- auto celery start failed manually run this command:\ncelery -A TriCacheLLM_MMA.portable_cache_bgWorkers.portable_cache_celery_conf.celery_app worker --loglevel=info -Q ai")
+            
+        """
+        
             return #user_id=0 doesnt need its own vdb! if you want to be it user-self be user_id=1 -> single user
                     #if you want multi-tanent then keep sending in user_ids lol
-        
         
         async with db_manager.async_session() as db:
             ans: None | dict = await create_cache_vdb_inishiator(user_id=user_id, db=db) 
