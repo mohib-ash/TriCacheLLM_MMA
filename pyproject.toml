@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "TriCacheLLM_MMA"
-version = "0.1.0"
+version = "0.1.1"
 description = "A robust three-tier LLM-aware caching SDK using Redis, ChromaDB, and automatic SQLite bootstrap."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -63,4 +63,4 @@ Repository = "https://github.com/mohib-ash/TriCacheLLM_MMA"
 Issues = "https://github.com/mohib-ash/TriCacheLLM_MMA/issues"
 
 [tool.setuptools]
-packages = ["TriCacheLLM_MMA"]
+packages = ["TriCacheLLM_MMA", "TriCacheLLM_MMA.portable_cache_Ai", "TriCacheLLM_MMA.portable_cache_bgWorkers", "TriCacheLLM_MMA.portable_cache_schemas", "TriCacheLLM_MMA.portable_cache_utils"]
