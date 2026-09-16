@@ -30,6 +30,11 @@ check_tenant_creation_status(...)
 
 The internal infrastructure handles the multi-tier lookup and promotion logic.
 
+--- 
+
+> **💡 Note for PyPI Visitors:** If you are reading this on PyPI, please check out the [TriCacheLLM_MMA GitHub Repository](https://github.com/mohib-ash/TriCacheLLM_MMA) for the most up-to-date documentation, integration guides, and advanced examples!
+
+
 ---
 
 # Architecture
@@ -380,7 +385,7 @@ Or install the development version directly from the repository:
 pip install .
 ```
 
-PyPI link: https://pypi.org/project/TriCacheLLM-MMA/0.1.2/
+PyPI link: https://pypi.org/project/TriCacheLLM-MMA/0.1.3/
 
 ---
 
