@@ -529,7 +529,7 @@ The core cache operations are asynchronous Python APIs and are not inherently ti
 The included integration example uses FastAPI because it provides a convenient demonstration of multi-user request handling.
 
 V1 is primarily demonstrated in a web-service architecture, while future versions aim to make standalone application integration equally straightforward.
-***NOTE: When you import files they'll send request to hugging face to get embedding model weights but only once! untill you reload server***
+***NOTE: On first initialization, the embedding model may contact Hugging Face to obtain the model if it is not already available in the local cache. Subsequent process reloads and reuse the locally cached model files Blazing fast.***
 
 ---
 
