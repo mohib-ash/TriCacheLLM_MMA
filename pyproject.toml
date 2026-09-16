@@ -62,5 +62,5 @@ Homepage = "https://github.com/mohib-ash/TriCacheLLM_MMA"
 Repository = "https://github.com/mohib-ash/TriCacheLLM_MMA"
 Issues = "https://github.com/mohib-ash/TriCacheLLM_MMA/issues"
 
-[tool.setuptools.packages.find]
-include = ["portable_cache_*"]
+[tool.setuptools]
+packages = ["TriCacheLLM_MMA"]

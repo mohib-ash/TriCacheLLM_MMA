@@ -2,8 +2,8 @@
 from sqlalchemy import Column, Integer, DateTime, Boolean, String, Text, ForeignKey, Enum as SQLEnum, text
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
-from portable_cache_schemas.portable_cache_dbBase import Base
-from portable_cache_schemas.portable_cache_schemas import CacheVDBStatus
+from .portable_cache_schemas.portable_cache_dbBase import Base
+from .portable_cache_schemas.portable_cache_schemas import CacheVDBStatus
 
 class User(Base):
     __tablename__ = "users"

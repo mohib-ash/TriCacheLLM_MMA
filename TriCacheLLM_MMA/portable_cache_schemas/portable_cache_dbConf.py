@@ -3,8 +3,8 @@ import sqlite3
 from pathlib import Path
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy import event
-from portable_cache_schemas.portable_cache_dbBase import Base
-from portable_cache_utils.protable_cache_DynamicEnv_maker import get_settings
+from ..portable_cache_schemas.portable_cache_dbBase import Base
+from ..portable_cache_utils.protable_cache_DynamicEnv_maker import get_settings
 
 
 class DatabaseManager:

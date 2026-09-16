@@ -2,8 +2,8 @@
 from pathlib import Path
 import redis.asyncio as aioredis
 from typing import Optional
-from portable_cache_utils.protable_cache_DynamicEnv_maker import get_settings
-from portable_cache_dbSchema import Paths
+from .portable_cache_utils.protable_cache_DynamicEnv_maker import get_settings
+from .portable_cache_dbSchema import Paths
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 

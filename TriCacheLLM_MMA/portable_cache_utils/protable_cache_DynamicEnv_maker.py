@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 from typing import Any, Optional
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from portable_cache_dbSchema import Paths
+from ..portable_cache_dbSchema import Paths
 from sqlalchemy import create_engine, select
 from pydantic import model_validator
 

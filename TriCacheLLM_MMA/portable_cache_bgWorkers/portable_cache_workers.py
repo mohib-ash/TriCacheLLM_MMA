@@ -2,18 +2,18 @@
 import asyncio
 from pathlib import Path
 from typing import Any
-from portable_cache_bgWorkers.portable_cache_celery_conf import celery_app
-from portable_cache_schemas.portable_cache_dbConf import db_manager
+from ..portable_cache_bgWorkers.portable_cache_celery_conf import celery_app
+from ..portable_cache_schemas.portable_cache_dbConf import db_manager
 import json
-from portable_cache_dbSchema import CacheVDBResource
-from portable_cache_utils.protable_cache_DynamicEnv_maker import get_settings
-from portable_cache_schemas.portable_cache_schemas import CacheVDBStatus 
+from ..portable_cache_dbSchema import CacheVDBResource
+from ..portable_cache_utils.protable_cache_DynamicEnv_maker import get_settings
+from ..portable_cache_schemas.portable_cache_schemas import CacheVDBStatus 
 from langchain_core.documents import Document as LangChainDocument
 from sqlalchemy import select
-from portable_cache_utils.portable_cache_embedding_model import embedding_model
+from ..portable_cache_utils.portable_cache_embedding_model import embedding_model
 from langchain_chroma import Chroma
 from datetime import datetime, timezone
-from portable_cache_dbSchema import Paths
+from ..portable_cache_dbSchema import Paths
 from sqlalchemy import text
 import time
 

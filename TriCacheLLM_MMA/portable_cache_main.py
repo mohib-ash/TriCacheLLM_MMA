@@ -4,12 +4,12 @@ import hashlib
 import json
 from pathlib import Path
 from typing import Any
-from portable_cache_schemas.portable_cache_dbConf import init_cache_database, init_db_tables, db_manager
-from portable_cache_schemas.portable_cache_schemas import CacheVDBStatus
-from portable_cache_dbSchema import CacheVDBResource
+from .portable_cache_schemas.portable_cache_dbConf import init_cache_database, init_db_tables, db_manager
+from .portable_cache_schemas.portable_cache_schemas import CacheVDBStatus
+from .portable_cache_dbSchema import CacheVDBResource
 from sqlalchemy import select
-from portable_cache_bgWorkers.portable_cache_workers import create_cache_vdb_worker, push_responce_in_cache_worker
-from portable_cache_utils.portable_cache_embedding_model import embedding_model
+from .portable_cache_bgWorkers.portable_cache_workers import create_cache_vdb_worker, push_responce_in_cache_worker
+from .portable_cache_utils.portable_cache_embedding_model import embedding_model
 from redis.asyncio import Redis
 from redis.commands.search.field import TagField, VectorField
 from redis.commands.search.index_definition import (
@@ -23,12 +23,12 @@ import numpy as np
 from langchain_chroma import Chroma
 from langchain_core.documents import Document as LangChainDocument
 import random
-from portable_cache_Ai.portable_cache_rerankAi import portable_cache_cohere_rerank
+from .portable_cache_Ai.portable_cache_rerankAi import portable_cache_cohere_rerank
 from typing import Optional
-from portable_cache_redis import get_redis 
-from portable_cache_redis import redis_manager
-from portable_cache_utils.protable_cache_DynamicEnv_maker import system_key
-from portable_cache_dbSchema import Paths
+from .portable_cache_redis import get_redis 
+from .portable_cache_redis import redis_manager
+from .portable_cache_utils.protable_cache_DynamicEnv_maker import system_key
+from .portable_cache_dbSchema import Paths
 
 def create_vector_index_schema(dim: int, distance_metric: str = "COSINE", m: int = 16, ef_construction: int = 200, ef_runtime: int = 10) -> list:
     return [
@@ -553,7 +553,7 @@ def check_tenant_creation_status(task_id, user_id) -> dict:
     user_id: int = int(user_id)
     
     from celery.result import AsyncResult
-    from portable_cache_bgWorkers.portable_cache_celery_conf import celery_app
+    from .portable_cache_bgWorkers.portable_cache_celery_conf import celery_app
     from celery.states import SUCCESS, FAILURE, RETRY
     
     async_result = AsyncResult(task_id, app=celery_app)

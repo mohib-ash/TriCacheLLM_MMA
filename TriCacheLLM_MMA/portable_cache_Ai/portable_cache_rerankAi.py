@@ -5,8 +5,8 @@ from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from langchain_core.documents import Document as LangChainDocument
-from portable_cache_utils.protable_cache_DynamicEnv_maker import get_settings
-from portable_cache_dbSchema import Paths
+from ..portable_cache_utils.protable_cache_DynamicEnv_maker import get_settings
+from ..portable_cache_dbSchema import Paths
 
 class CohereManager:
     """Encapsulates the Cohere client to prevent import-time crashes."""

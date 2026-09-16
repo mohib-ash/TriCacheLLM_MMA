@@ -3,8 +3,8 @@ from pathlib import Path
 from celery import Celery
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from portable_cache_utils.protable_cache_DynamicEnv_maker import get_settings
-from portable_cache_dbSchema import Paths
+from ..portable_cache_utils.protable_cache_DynamicEnv_maker import get_settings
+from ..portable_cache_dbSchema import Paths
 
 def get_celery_redis_url() -> str:
     """Sneaks a peek into the SQLite registry DB to grab the true source-of-truth redis_url for Celery."""
