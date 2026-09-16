@@ -382,7 +382,7 @@ Or install the development version directly from the repository:
 pip install .
 ```
 
-PyPI link: [https://pypi.org/project/TriCacheLLM-MMA/0.1.6/](https://pypi.org/project/TriCacheLLM-MMA/0.1.6/)​
+PyPI link: [https://pypi.org/project/TriCacheLLM-MMA/0.1.8/](https://pypi.org/project/TriCacheLLM-MMA/0.1.8/)​
 
 ---
 
@@ -436,6 +436,25 @@ Keep the Celery worker running while using the cache.
 
 ---
 
+### 📂 Model Caching Locations
+
+To ensure heavy Hugging Face embedding models don't re-download or clutter your project directory, `TriCacheLLM_MMA` automatically stores them in a stable, user-level system cache directory depending on your operating system:
+
+* **Windows:** 
+  `%LOCALAPPDATA%\TriCacheLLM_MMA\embedding_model\` 
+
+  *(Falls back to `C:\Users\<Username>\AppData\Local\TriCacheLLM_MMA\embedding_model\`)*
+
+* **macOS:** 
+  `~/Library/Caches/TriCacheLLM_MMA/embedding_model/`
+
+* **Linux / Unix:** 
+  `$XDG_CACHE_HOME/TriCacheLLM_MMA/embedding_model/` 
+  
+  *(Falls back to `~/.cache/TriCacheLLM_MMA/embedding_model/`)*
+
+---
+
 # Cohere
 
 The persistent cache tier uses Cohere reranking.
@@ -479,7 +498,7 @@ app = FastAPI(
 )
 
 
-# NOTE: It is strongly recommended—if not required—to run create_cache_system(user_id=0) for initialization before starting Celery.
+# NOTE: Run celery first it will download the embedding model for you then initialize create_cache_system(user_id=0)
 # In upcoming versions, this process will be automated, so you won't need to manually run the Celery command.
 
 

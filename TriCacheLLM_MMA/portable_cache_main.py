@@ -444,7 +444,7 @@ async def create_cache_system(
                 raise ValueError("Failed to initialize system keys. Verify if the keys are correct.")
             
             
-            # This bit is for 0.1.8 (it being after sysetm_key is on purpose)
+            # This bit is for 0.1.9 (at import time embedding model will be loaded anyways so run this anytime u want) 
             """
             is_in_venv = sys.prefix != sys.base_prefix
             celery_name = "celery.exe" if os.name == "nt" else "celery"

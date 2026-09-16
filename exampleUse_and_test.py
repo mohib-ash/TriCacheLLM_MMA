@@ -37,7 +37,7 @@ app = FastAPI(
 )
 
 
-# NOTE: It is strongly recommended—if not required—to run create_cache_system(user_id=0) for initialization before starting Celery.
+# NOTE: Run celery first it will download the embedding model for you then initialize create_cache_system(user_id=0)
 # In upcoming versions, this process will be automated, so you won't need to manually run the Celery command.
 
 
@@ -75,8 +75,8 @@ async def initialize_consumer():
     result = await create_cache_system(
         redis_url="redis://localhost:6379/0",
         cohere_api_key="KEY_HERE",
-        chroma_db_dir="./chroma_db",
-        db_path="./cache.db",
+        chroma_db_dir="./chroma_db", #<- This will be the dir name which will hold each chorma vector data base chroma_db/user_1/, user_2, ...
+        db_path="./cache.db_MMA", #<- add _MMA porstfix for you ease as it will also act as file name
         user_id=user_id, #for this value expect None
     )
     return {"status": "success", "details": result}
