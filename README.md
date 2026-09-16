@@ -469,18 +469,31 @@ from TriCacheLLM_MMA import (
     check_tenant_creation_status,
 )
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
+    await close_cache_system()
+
+
+app = FastAPI(
+    title="TriCacheLLM_MMA V1 Route Test",
+    lifespan=lifespan,
+)
+
 
 # 1. ADMIN SETUP (Run once on startup / first deploy with user_id=0)
-@app.on_event("startup")
-async def startup_event():
-    await create_cache_system(
+@app.post("/api/consumer/init")
+async def initialize_consumer():
+    user_id: int = 0
+    result = await create_cache_system(
         redis_url="redis://localhost:6379/0",
-        cohere_api_key="YOUR_COHERE_API_KEY",
+        cohere_api_key="KEY_HERE",
         chroma_db_dir="./chroma_db",
         db_path="./cache.db",
-        user_id=0,
+        user_id=user_id, 
     )
+    return {"status": "success", "details": result}
 
 
 # 2. TENANT ENDPOINT (Zero boilerplate for subsequent users)
@@ -510,6 +523,7 @@ async def ask_question(
     )
 
     return {"source": "ai", "response": llm_response}
+
 ```
 The core cache operations are asynchronous Python APIs and are not inherently tied to FastAPI.
 The included integration example uses FastAPI because it provides a convenient demonstration of multi-user request handling.
