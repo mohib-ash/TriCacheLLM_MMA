@@ -380,7 +380,7 @@ Or install the development version directly from the repository:
 pip install .
 ```
 
-PyPI link: https://pypi.org/project/TriCacheLLM-MMA/0.1.0/
+PyPI link: https://pypi.org/project/TriCacheLLM-MMA/0.1.2/
 
 ---
 
@@ -456,10 +456,12 @@ A minimal integration looks like this:
 
 ```python
 from fastapi import FastAPI, Depends
-from portable_cache_main import (
+from TriCacheLLM_MMA import (
     create_cache_system,
-    check_cache,
     populate_cache,
+    check_cache,
+    close_cache_system,
+    check_tenant_creation_status,
 )
 
 app = FastAPI()
@@ -508,6 +510,7 @@ The core cache operations are asynchronous Python APIs and are not inherently ti
 The included integration example uses FastAPI because it provides a convenient demonstration of multi-user request handling.
 
 V1 is primarily demonstrated in a web-service architecture, while future versions aim to make standalone application integration equally straightforward.
+***NOTE: When you import files they'll send request to hugging face to get embedding model weights but only once! untill you reload server***
 
 ---
 

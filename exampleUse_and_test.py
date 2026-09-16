@@ -4,13 +4,24 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from portable_cache_main import (
+from TriCacheLLM_MMA.portable_cache_main import (
     create_cache_system,
     populate_cache,
     check_cache,
     close_cache_system,
     check_tenant_creation_status
 )
+"""
+But for you it would be like:
+from TriCacheLLM_MMA import (
+    create_cache_system,
+    populate_cache,
+    check_cache,
+    close_cache_system,
+    check_tenant_creation_status,
+)
+"""
+
 
 
 # Shut-down 

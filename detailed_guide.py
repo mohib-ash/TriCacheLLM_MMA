@@ -1,6 +1,23 @@
 from fastapi import FastAPI, Depends
 # Import your actual package name/functions
-from portable_cache_main import check_cache, populate_cache, create_cache_system, close_cache_system
+from TriCacheLLM_MMA.portable_cache_main import (
+    create_cache_system,
+    populate_cache,
+    check_cache,
+    close_cache_system,
+    check_tenant_creation_status
+)
+"""
+for you if you: pip install TriCacheLLM_MMA it will be like:
+from TriCacheLLM_MMA import (
+    create_cache_system,
+    populate_cache,
+    check_cache,
+    close_cache_system,
+    check_tenant_creation_status,
+)
+"""
+
 
 app = FastAPI()
 
