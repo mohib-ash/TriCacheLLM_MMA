@@ -37,9 +37,7 @@ app = FastAPI(
 )
 
 
-# NOTE: Run celery first it will download the embedding model for you then initialize create_cache_system(user_id=0)
-# In upcoming versions, this process will be automated, so you won't need to manually run the Celery command.
-
+#NOTE: model will download once at import time
 
 
 

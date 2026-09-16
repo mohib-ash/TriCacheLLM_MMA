@@ -32,7 +32,7 @@ The internal infrastructure handles the multi-tier lookup and promotion logic.
 
 --- 
 
-> **💡 Note for PyPI Visitors:** If you are reading this on PyPI, please check out the [TriCacheLLM_MMA GitHub Repository](https://github.com/mohib-ash/TriCacheLLM_MMA) for the most up-to-date documentation, integration guides, and advanced examples!
+> **💡 Note for PyPI Visitors:** If you are reading this on PyPI, I strongly encourage you to visit the [TriCacheLLM_MMA GitHub Repository](https://github.com/mohib-ash/TriCacheLLM_MMA) for the most ***up-to-date*** documentation, integration guides, and advanced examples!
 
 ---
 
@@ -498,8 +498,7 @@ app = FastAPI(
 )
 
 
-# NOTE: Run celery first it will download the embedding model for you then initialize create_cache_system(user_id=0)
-# In upcoming versions, this process will be automated, so you won't need to manually run the Celery command.
+#NOTE: model will download once at import time
 
 
 # 1. ADMIN SETUP (Run once on startup / first deploy with user_id=0)
