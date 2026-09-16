@@ -46,7 +46,6 @@ async def create_cache_vdb_async(task_instance: Any, user_id: int):
                 parents=True,
                 exist_ok=True,
             )
-
             await asyncio.to_thread(
                 lambda: Chroma(
                     collection_name=f"question_cache_{user_id}",
@@ -142,7 +141,6 @@ async def push_response_in_cache_async(task_instance: Any, user_id, question: st
                 )
 
             user_cache_vdb_path = Path(cache_res.vdb_path)
-
             user_cache_vdb = await asyncio.to_thread(
                 lambda: Chroma(
                     collection_name=f"question_cache_{user_id}",

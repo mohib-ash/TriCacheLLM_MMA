@@ -524,7 +524,7 @@ async def populate_cache(to_cache_answer, to_cache_question, user_id: Any = 0) -
 async def close_cache_system():
     print("SHUTTING_DOWN_PORTABLE_CACHE: Cleaning up resources...")
 
-    from portable_cache_schemas.portable_cache_dbConf import db_manager
+    from .portable_cache_schemas.portable_cache_dbConf import db_manager
 
     if db_manager.norma_engine is not None:
         try:

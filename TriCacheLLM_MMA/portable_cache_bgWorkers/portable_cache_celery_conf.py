@@ -34,7 +34,7 @@ celery_app = Celery(
 )
 
 celery_app.conf.imports = (
-    "portable_cache_bgWorkers.portable_cache_workers",
+    "TriCacheLLM_MMA.portable_cache_bgWorkers.portable_cache_workers",
 )
 
 celery_app.conf.task_default_queue = "default"

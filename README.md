@@ -34,7 +34,6 @@ The internal infrastructure handles the multi-tier lookup and promotion logic.
 
 > **💡 Note for PyPI Visitors:** If you are reading this on PyPI, please check out the [TriCacheLLM_MMA GitHub Repository](https://github.com/mohib-ash/TriCacheLLM_MMA) for the most up-to-date documentation, integration guides, and advanced examples!
 
-
 ---
 
 # Architecture
@@ -130,7 +129,7 @@ Tier 2 is intentionally optimized for fast semantic cache retrieval.
 
 Tier 3 is the persistent cache layer.
 
-The persistent vector database acts as the long-term backing store for cached Q&A entries.
+The persistent vector database acts as the long-term backing store for cached Q\&A entries.
 
 When Tier 1 and Tier 2 miss, Tier 3 performs the persistent lookup.
 
@@ -250,8 +249,6 @@ Persistent cache seeded
 # Important V1 Semantics
 
 `populate_cache()` and `check_cache()` have intentionally different responsibilities.
-
-
 
 `populate_cache()` seeds the persistent cache VDB.
 
@@ -385,7 +382,7 @@ Or install the development version directly from the repository:
 pip install .
 ```
 
-PyPI link: https://pypi.org/project/TriCacheLLM-MMA/0.1.3/
+PyPI link: [https://pypi.org/project/TriCacheLLM-MMA/0.1.6/](https://pypi.org/project/TriCacheLLM-MMA/0.1.6/)​
 
 ---
 
@@ -417,7 +414,7 @@ TriCacheLLM_MMA uses Celery for background operations such as:
 After installing the package, start the cache worker in a **separate terminal**:
 
 ```bash
-celery -A portable_cache_bgWorkers.portable_cache_celery_conf.celery_app worker --loglevel=info -Q ai
+celery -A TriCacheLLM_MMA.portable_cache_bgWorkers.portable_cache_celery_conf.celery_app worker --loglevel=info -Q ai
 ```
 
 You do **not** need to navigate into the package's `site-packages` directory.
@@ -529,13 +526,12 @@ The core cache operations are asynchronous Python APIs and are not inherently ti
 The included integration example uses FastAPI because it provides a convenient demonstration of multi-user request handling.
 
 V1 is primarily demonstrated in a web-service architecture, while future versions aim to make standalone application integration equally straightforward.
-***NOTE: On first initialization, the embedding model may contact Hugging Face to obtain the model if it is not already available in the local cache. Subsequent process reloads and reuse the locally cached model files Blazing fast.***
+
+
+> **Note on Model Initialization:**
+> On the first request or system initialization, the embedding model will load into RAM (fetching from Hugging Face if it's not already present in your local cache). Subsequent requests and code reloads reuse the cached instance instantly for blazing-fast performance.
 
 ---
-
-
-
-
 
 # Cache Data Model
 
@@ -571,9 +567,6 @@ For example, you may want to restrict cache retrieval to:
 
 The persistent retrieval logic can be extended around the VDB lookup.
 
-
-
-
 This allows applications to combine semantic retrieval with deterministic metadata constraints.
 
 ---
@@ -583,8 +576,6 @@ This allows applications to combine semantic retrieval with deterministic metada
 Additional metadata can be added to the cache payload.
 
 The cache population path constructs metadata similar to:
-
-
 
 For example:
 
@@ -838,8 +829,6 @@ These can be considered for future versions.
 
 ---
 
-
-
 # Consumer Responsibility
 
 The consuming application is responsible for:
@@ -895,7 +884,6 @@ Potential V3 improvements may include:
 The current V1 intentionally keeps the architecture close to the underlying implementation rather than hiding every component behind abstractions.
 
 ---
-
 
 # License
 
