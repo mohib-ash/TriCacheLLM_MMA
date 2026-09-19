@@ -911,10 +911,12 @@ The current V1 intentionally keeps the architecture close to the underlying impl
 
 This project is licensed under the **GNU Lesser General Public License v3.0 (LGPLv3)**. 
 See the [LICENSE](LICENSE) file for details.
+
+
 Why GNU Lesser General Public License v3.0?
 
 Well understand that if someone fixes a bug or improves the core code of TriCacheLLM-MMA itself, they must ***give that fix back*** to the ***open-source community***.
-Let me repeat for the open-source community, for everyone!
+Let me repeat for the ***open-source community***, for the sake of ***everyone!***
 
 ---
 
